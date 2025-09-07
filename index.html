@@ -75,6 +75,7 @@
                                 <li><a href="#section-2-1" class="text-body rounded">Обход чат капчи</a></li>
                                 <li><a href="#section-2-2" class="text-body rounded">Обход математической title капчи</a></li>
                                 <li><a href="#section-2-3" class="text-body rounded">Обход чат клик капчи</a></li>
+                                <li><a href="#section-2-4" class="text-body rounded">Обход шифт капчи</a></li>
                             </ul>
                         </div>
                     </li>
@@ -243,6 +244,18 @@ function onChatMessage(bot, component) {
     }
 }
         </code></pre>
+        <h2 id="section-2-4" class="fw-bold mt-5">Обход шифт капчи</h2>
+        <img class="img-fluid mb-4" src="img/shiftcap.png" alt="Image">
+        <pre><code class="language-js">
+function onChatMessage(bot, component) {
+    var message = component.getString().toLowerCase();
+    if(message.contains("shift") || message.contains("шифт")) {
+        bot.getKeyboard().keyBindSneak = true;
+    } else {
+        bot.getKeyboard().keyBindSneak = false;
+    }
+}
+        </code></pre>
     </div>
     <!-- Section End -->
 
@@ -266,5 +279,6 @@ function onChatMessage(bot, component) {
     <!-- Javascript -->
     <script src="js/main.js"></script>
 </body>
+
 
 </html>
