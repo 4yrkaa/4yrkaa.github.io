@@ -194,7 +194,39 @@ function onWindowItems(bot, items, windowId) {
     @String message Строка с текстом
 
 */
+
 bot.getPlayer().sendChatMessage(message);
+        </code></pre>
+        <h2 id="section-3-2" class="fw-bold mt-5">Передвижение</h2>
+        <pre><code class="language-js">
+/*
+    Управляет ботом
+
+    @Boolean true = кнопка нажата; false = отпущена
+*/
+
+bot.getKeyboard().setForwardPressed(true); // Движение вперёд
+bot.getKeyboard().setBackPressed(true);    // Движение назад
+bot.getKeyboard().setLeftPressed(true);    // Движение влево
+bot.getKeyboard().setRightPressed(true);   // Движение вправо
+bot.getKeyboard().setJumpPressed(true);    // Прыжок
+bot.getKeyboard().setSneakPressed(true);   // Шифт
+        </code></pre>
+        <h2 id="section-3-3" class="fw-bold mt-5">Управление ботом</h2>
+        <pre><code class="language-js">
+/*
+    Управляет ботом
+
+    @int slot
+    @int key   0/1 - лкм/пкм
+*/
+
+bot.getController().windowClick(slot, key); // Клик по слоту в инвентаре/меню
+bot.getPlayer().closeScreen(); // Закрытие инвентаря/меню
+bot.useItem();                 // пкм по предмету в руке
+bot.changeSlot(slot);          // установить слот в хотбаре
+bot.getNickname();             // (возвращает String) ник бота
+
         </code></pre>
     </div>
     <!-- Section End -->
