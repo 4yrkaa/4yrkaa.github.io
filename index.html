@@ -298,9 +298,9 @@ function onChatMessage(bot, component) {
 function onChatMessage(bot, component) {
     var message = component.getString().toLowerCase();
     if(message.contains("shift") || message.contains("шифт")) {
-        bot.getKeyboard().keyBindSneak = true;
+        bot.getKeyboard().setSneakPressed(true)
     } else {
-        bot.getKeyboard().keyBindSneak = false;
+        bot.getKeyboard().setSneakPressed(false)
     }
 }
         </code></pre>
@@ -432,5 +432,6 @@ function handleClickCaptcha(bot, component) {
     <!-- Javascript -->
     <script src="js/main.js"></script>
 </body>
+
 
 </html>
