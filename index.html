@@ -65,6 +65,9 @@
                         <div class="collapse" id="collapse-2">
                             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                                 <li><a href="#section-3-1" class="text-body rounded">sendChatMessage</a></li>
+                                <li><a href="#section-3-2" class="text-body rounded">Передвижение</a></li>
+                                <li><a href="#section-3-3" class="text-body rounded">Управление ботом</a></li>
+                                <li><a href="#section-3-4" class="text-body rounded">Параметры</a></li>
                             </ul>
                         </div>
                     </li>
@@ -227,6 +230,15 @@ bot.useItem();                 // пкм по предмету в руке
 bot.changeSlot(slot);          // установить слот в хотбаре
 bot.getNickname();             // (возвращает String) ник бота
 
+        </code></pre>
+        <h2 id="section-3-4" class="fw-bold mt-5">Параметры</h2>
+        <pre><code class="language-js">
+bot.getParameters().setParameter("key", "value"); //сохранение параметра, value может быть String/Integer/Boolean/Object
+bot.getParameters().getInteger("key"); //получить параметр как Integer
+bot.getParameters().getBoolean("key"); //получить параметр как Boolean
+bot.getParameters().getString("key"); //получить параметр как String
+bot.getParameters().get("key"); //получить параметр как Object
+bot.getParameters().getOrDefault("key", "default"); //получить параметр как Object, default - значение если параметр не найден
         </code></pre>
     </div>
     <!-- Section End -->
@@ -432,6 +444,5 @@ function handleClickCaptcha(bot, component) {
     <!-- Javascript -->
     <script src="js/main.js"></script>
 </body>
-
 
 </html>
