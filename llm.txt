@@ -1,0 +1,155 @@
+# NeoProxy
+Documentation: https://4yrkaa.github.io
+language: Rhino(JavaScript)
+description: Writing scripts in the Rhino language using only the specified functions
+
+## Instructions
+Call functions ONLY when the user explicitly asks to perform a task
+Don't invent parameters - use only those that are described
+Don't invent methods and calls that aren't described
+If there is not enough data, ask the user a clarifying question
+
+## Calls
+
+function onChatMessage(bot, component)
+Using: Called when a chat message is received
+Example:
+function onChatMessage(bot, component) {
+    var strMessage = component.getString(); //Get a chat message without colors
+}
+
+
+function onTitleMessage(bot, component, type)
+@param type = "TITLE", "SUBTITLE", "ACTIONBAR", "TIMES", "RESET"
+Using: Called when the bot receives a title message on the screen
+Example:
+function onTitleMessage(bot, component, type) {
+    var strMessage = component.getString(); //Get a title message without colors
+}
+
+function onJoin(bot, gameMode)
+@param gameMode = "survival", "creative", "adventure", "spectator"
+Using: Сalled when the bot is connected
+Example:
+function onJoin(bot, gameMode) {}
+
+function onWindowItems(bot, items, windowId)
+Using: Called when the chest/inventory/menu is updated or open
+Example:
+function onWindowItems(bot, items, windowId) {
+    for(var i = 0; i < items.size(); i++) {
+        if(items.get(i).getTranslationKey().contains("lime")) {
+            bot.getController().windowClick(i, 0);
+}}}
+
+## Methods
+
+bot.getPlayer().sendChatMessage(message > str);
+Using: The bot will send messages to the chat
+Example:
+bot.getPlayer().sendChatMessage("Hello");
+
+bot.getController().windowClick(slot > int, key > int);
+@int key = 0 - LMB/1 - RMB
+Using: Click on a slot in the inventory/chest/menu
+Example:
+bot.getController().windowClick(5, 1);
+
+bot.changeSlot(slot > int);
+@int slot = 0-9
+Using: Change hotbar slot
+
+bot.getNickname();
+Using: Get bot name
+Return: String
+
+bot.getPlayer().closeScreen();
+Using: Bot close inventory/chest/menu
+
+bot.useItem(); 
+Using: Use item on main hand
+
+# Move
+
+bot.getKeyboard().setForwardPressed(true); // Move Forward(W)
+bot.getKeyboard().setBackPressed(true);    // Move Back(S)
+bot.getKeyboard().setLeftPressed(true);    // Move Left(A)
+bot.getKeyboard().setRightPressed(true);   // Move Right(D)
+bot.getKeyboard().setJumpPressed(true);    // Jump(Spase)
+bot.getKeyboard().setSneakPressed(true);   // Sneak(Shift)
+
+# Memory
+
+bot.getParameters().setParameter("key", "value"); //saving a parameter, value can be String/Integer/Boolean/Object
+bot.getParameters().getInteger("key"); //get the parameter as an Integer
+bot.getParameters().getBoolean("key"); //get the parameter as Boolean
+bot.getParameters().getString("key"); //get the parameter as a String
+bot.getParameters().get("key"); //get the parameter as an Object
+bot.getParameters().getOrDefault("key", "default"); //get parameter as Object, default - value if parameter is not found
+
+# Examples
+
+## Bypass chat
+function onChatMessage(bot, component) {
+    var message = component.getString();
+    if(message.contains("Введите капчу: ")) {
+        bot.getPlayer().sendChatMessage(message.split("капчу: ")[1]);
+    }
+}
+
+## Bypass shift
+function onChatMessage(bot, component) {
+    var message = component.getString().toLowerCase();
+    if(message.contains("shift") || message.contains("шифт")) {
+        bot.getKeyboard().setSneakPressed(true)
+    } else {
+        bot.getKeyboard().setSneakPressed(false)
+    }
+}
+
+## Bypass lime glass
+function onWindowItems(bot, items, windowId) {
+    for(var i = 0; i &lt; items.size(); i++) {
+        if(items.get(i).getTranslationKey().contains("lime")) {
+            bot.getController().windowClick(i, 0);
+        }
+    }
+}
+
+## Bypass sends chat #baritone
+function onChatMessage(bot, component) {
+    var message = component.getString();
+    if(message.contains("#baritone")) {
+        bot.getPlayer().sendChatMessage("#baritone");
+    }
+}
+
+## Bypass chat send /code
+function onChatMessage(bot, component) {
+    var message = component.getString();
+    if (message.contains("Введите команду: ") && message.contains(" или ")) {
+        var s1 = message.split("Введите команду: ")[1];
+        var s2 = s1.split(" или ")[0];
+        bot.getPlayer().sendChatMessage(s2);
+    }
+}
+
+## Bypass chat click
+function onChatMessage(bot, component) {
+    var siblings = component.getSiblings();
+
+    if(siblings.size() > 0) {
+        for (var i = 0; i < siblings.size(); i++) {
+            var clickEvent = siblings.get(i).getStyle().getClickEvent();
+            if(clickEvent != null && clickEvent.getAction().getCanonicalName().equals("run_command")) {
+                bot.getPlayer().sendChatMessage(clickEvent.getValue());
+                break;
+            }
+        }
+    } else {
+        var clickEvent = component.getStyle().getClickEvent();
+        if(clickEvent != null && clickEvent.getAction().getCanonicalName().equals("run_command")) {
+            bot.getPlayer().sendChatMessage(clickEvent.getValue());
+        }
+    }
+}
