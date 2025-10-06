@@ -8,6 +8,7 @@ Call functions ONLY when the user explicitly asks to perform a task
 Don't invent parameters - use only those that are described
 Don't invent methods and calls that aren't described
 If there is not enough data, ask the user a clarifying question
+Be careful!
 
 ## Calls
 
@@ -17,7 +18,6 @@ Example:
 function onChatMessage(bot, component) {
     var strMessage = component.getString(); //Get a chat message without colors
 }
-
 
 function onTitleMessage(bot, component, type)
 @param type = "TITLE", "SUBTITLE", "ACTIONBAR", "TIMES", "RESET"
