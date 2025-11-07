@@ -291,7 +291,7 @@ function onChatMessage(bot, component) {
     if(siblings.size() > 0) {
         for (var i = 0; i < siblings.size(); i++) {
             var clickEvent = siblings.get(i).getStyle().getClickEvent();
-            if(clickEvent != null &amp;&& clickEvent.getAction().getCanonicalName().equals("run_command")) {
+            if(clickEvent != null && clickEvent.getAction().getCanonicalName().equals("run_command")) {
                 bot.getPlayer().sendChatMessage(clickEvent.getValue());
                 break;
             }
@@ -449,6 +449,7 @@ function handleClickCaptcha(bot, component) {
 
 
 </html>
+
 
 
 
